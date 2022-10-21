@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+  font-family: "Roboto";
+}
+
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */
+
+.main-container{
+  height: 100vh;
+  font-family: "Roboto";
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+}
+.loader-container{
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.search-input{
+  width:100%;
+  padding: 8px 20px 8px 16px;
+  outline: none;
+  border: 1px solid #808080;
+  border-radius: 3px;
+  color: #303030;
+  font-size: 18px;
+  font-weight: bold;
+  font-family:"Roboto";
+}
+.table{
+  font-family: "Roboto";
+}
+.user-input{
+  border: none;
+  outline: none;
+  padding: 0px;
+  border-bottom: 1px solid blue;
+  width: 200px;
+}
+.buttons{
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0px 14px 0px 0px;
+  background-color: transparent;
+}
+.para{
+  width: 200px;
+  margin: 0px;
+}
+.checkboxs{
+  cursor: pointer;
+}
+.page-buttons-container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.active-arrow{
+  cursor: pointer;
+  border:1px solid blue;
+  outline: none;
+  margin-right: 14px;
+  margin-left: 4px;
+}
+.unActive-arrow{
+  cursor: pointer;
+  border:1px solid rgb(168, 168, 203);
+  outline: none;
+  margin-right: 14px;
+  margin-left: 4px;
+}
+.failure-view{
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.active-btn{
+  cursor: pointer;
+  margin-right: 10px;
+  border: none;
+  outline: none;
+  background-color: rgb(100, 18, 232);
+  color: #ffffff;
+}
+.non-active-btn{
+  cursor: pointer;
+  margin-right: 10px;
+  border: none;
+  outline: none;
+  color: #000000;
+}
