@@ -1,7 +1,8 @@
 import React, {useState,useEffect} from "react"
 import {TailSpin} from "react-loader-spinner"
-import {BiEdit} from "react-icons/bi"
-import {AiOutlineDelete,AiOutlineLeft,AiOutlineRight} from "react-icons/ai"
+import {AiOutlineLeft,AiOutlineRight} from "react-icons/ai"
+import {BsChevronDoubleRight,BsChevronDoubleLeft} from "react-icons/bs"
+import TableComponent from "./components/TableComponent"
 import './App.css';
 
 const apiStatusConstants = {
@@ -45,11 +46,7 @@ const App = () => {
 
   const filteredDataCount = event => {
     const filterValue=event.target.value.toLowerCase()
-    const filteredData = data.filter(obj=>{
-      if((obj.email.toLowerCase().includes(filterValue)) ||(obj.name.toLowerCase().includes(filterValue)) || (obj.role.toLowerCase().includes(filterValue))){
-        return obj 
-      }
-    })
+    const filteredData = data.filter(obj=>((obj.email.toLowerCase().includes(filterValue)) ||(obj.name.toLowerCase().includes(filterValue)) || (obj.role.toLowerCase().includes(filterValue))))
     setPagesCount(Math.ceil(filteredData.length/10))
   }
 
@@ -81,96 +78,29 @@ const App = () => {
 
 
 
-
-  const toggleEditability = id => {
-    const updatedData = data.map(obj =>{
-      if(obj.id===id){
-        const newObj={...obj,isEditable:!obj.isEditable}
-        return newObj
-      }
-      return obj
-  })
-    setData(updatedData)
-  }
-
-
-
-
-  const changeChecked = id => {
-    const updatedData = data.map(obj => {
-      if(obj.id===id){
-        const newObj = {...obj,isChecked:!obj.isChecked}
-        return newObj
-      }return obj
-    })
-    setData(updatedData)
-  }
-
-
-
-
-  const toggleAllCheckboxes = event => {
-    if(event.target.checked){
-      const updatedData = data.map(obj => ({...obj,isChecked:true}))
-      setData(updatedData)
-    }else{
-      const updatedData = data.map(obj => ({...obj,isChecked:false}))
-      setData(updatedData)
-    }
-  }
-
-
-
-
   const deleteRow = id => {
     const updatedData = data.filter(obj=>obj.id!==id)
     setData(updatedData)
     setPagesCount(Math.ceil(updatedData.length/10))
   }
 
+  function initializingDisplayData() {
+    const filterValue = userInput.toLowerCase()
+    const filteredData = data.filter(obj => ((obj.email.toLowerCase().includes(filterValue)) || (obj.name.toLowerCase().includes(filterValue)) || (obj.role.toLowerCase().includes(filterValue)))
+    )
 
-
-
-  const renderTable = () => {
-    const filterValue=userInput.toLowerCase()
-    const filteredData = data.filter(obj=>{
-      if((obj.email.toLowerCase().includes(filterValue)) ||(obj.name.toLowerCase().includes(filterValue)) || (obj.role.toLowerCase().includes(filterValue))){
-        return obj 
-      }
-    })
-    let displayData;
-    if (activeButton===1){
-      displayData = filteredData.filter((obj,index)=>{if(index<10){return obj}})
-    }else{
-      const stringNumber=`${activeButton}0`
-      const startIndex = parseInt(stringNumber)-10
-      const endIndex = parseInt(stringNumber)
-      displayData = filteredData.filter((obj,index)=>{if(index>=startIndex && index<endIndex){return obj}})
+    if (activeButton === 1) {
+        return filteredData.filter((obj, index) => index < 10)
+    } else {
+        const stringNumber = `${activeButton}0`
+        const startIndex = parseInt(stringNumber) - 10
+        const endIndex = parseInt(stringNumber)
+        return filteredData.filter((obj, index) => (index >= startIndex && index < endIndex))
     }
-    
-    return(<table className="table" >
-  <thead>
-    <tr>
-      <th scope="col"><input type="checkbox" onChange={event => toggleAllCheckboxes(event)} className="checkboxs" /></th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Role</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {displayData.map((info,index) => <tr key={info.id}>
-      <td><input type="checkbox" checked={info.isChecked} onChange={() => changeChecked(info.id)} className="checkboxs"  /></td>
-      <td>{info.isEditable?<input type="text" name="name" value={info.name} className="user-input" onChange={event=>onChangeInputs(event,info.id,index)} />:<p className="para">{info.name}</p>}</td>
-      <td>{info.isEditable?<input type="text" name="email" value={info.email} className="user-input" onChange={event=>onChangeInputs(event,info.id,index)}  />:<p className="para">{info.email}</p>}</td>
-      <td>{info.isEditable?<input type="text" name="role" value={info.role} className="user-input" onChange={event=>onChangeInputs(event,info.id,index)}  />:<p className="para">{info.role}</p>}</td>
-      <td>
-        <button type="button" className="buttons" onClick={()=>toggleEditability(info.id)}><BiEdit color={info.isEditable?"#0000FF":null}/></button>
-        <button type="button" className="buttons" onClick={()=>deleteRow(info.id)}><AiOutlineDelete color="red"/></button>
-      </td>
-    </tr>)}
-  </tbody>
-</table>)}
+}
+
+
+  const renderTable = () => <TableComponent tableDetails={{userInput,data,activeButton,onChangeInputs,deleteRow,setData,displayData:initializingDisplayData()}}/>
 
 
 
@@ -217,13 +147,22 @@ const App = () => {
     
   }
 
+  const deleteCheckedRows = () => {
+    const updatedData = data.filter(obj=>(obj.isChecked===false))
+    setData(updatedData)
+    setPagesCount(Math.ceil(updatedData.length/10))
+  }
+
   return <div className="main-container">
     {searchBar()}
     {renderingResult()}
     <div className="page-buttons-container">
+      <button type="button" className="delete-selected-button" onClick={()=>deleteCheckedRows()}>Delected Selected</button>
+      {pagesCount>1 && <button className={activeButton>1?"active-arrow":"unActive-arrow"} onClick={()=>setActiveButton(1)} ><BsChevronDoubleLeft/></button>}
       {pagesCount>1 && <button className={activeButton>1?"active-arrow":"unActive-arrow"} onClick={()=>{activeButton>1&&setActiveButton(prevSta=>prevSta-1)}} ><AiOutlineLeft/></button>}
     {renderPagesButtons()}
     {pagesCount>1 && <button className={activeButton<pagesCount?"active-arrow":"unActive-arrow"} onClick={()=>{activeButton<pagesCount&&setActiveButton(prevSta=>prevSta+1)}} ><AiOutlineRight/></button>}
+    {pagesCount>1 && <button className={activeButton<pagesCount?"active-arrow":"unActive-arrow"} onClick={()=>setActiveButton(pagesCount)} ><BsChevronDoubleRight/></button>}
     </div>
   </div>
 }

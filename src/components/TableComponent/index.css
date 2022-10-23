@@ -1,0 +1,24 @@
+.table{
+    font-family: "Roboto";
+  }
+.user-input{
+    border: none;
+    outline: none;
+    padding: 0px;
+    border-bottom: 1px solid blue;
+    width: 200px;
+}
+.buttons{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin: 0px 14px 0px 0px;
+    background-color: transparent;
+}
+.para{
+    width: 200px;
+    margin: 0px;
+}
+.checkboxs{
+    cursor: pointer;
+}

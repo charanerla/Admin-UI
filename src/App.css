@@ -41,30 +41,7 @@
   font-weight: bold;
   font-family:"Roboto";
 }
-.table{
-  font-family: "Roboto";
-}
-.user-input{
-  border: none;
-  outline: none;
-  padding: 0px;
-  border-bottom: 1px solid blue;
-  width: 200px;
-}
-.buttons{
-  border: none;
-  outline: none;
-  cursor: pointer;
-  margin: 0px 14px 0px 0px;
-  background-color: transparent;
-}
-.para{
-  width: 200px;
-  margin: 0px;
-}
-.checkboxs{
-  cursor: pointer;
-}
+
 .page-buttons-container{
   width: 100%;
   display: flex;
@@ -107,4 +84,15 @@
   border: none;
   outline: none;
   color: #000000;
+}
+.delete-selected-button{
+  border: none;
+  outline: none;
+  background-color: red;
+  border-radius: 20px;
+  padding:8px 25px 8px 25px;
+  color: #ffffff;
+  cursor: pointer;
+  align-content: flex-start;
+  margin-right: 10%;
 }
